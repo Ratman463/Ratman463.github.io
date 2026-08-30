@@ -1,56 +1,55 @@
 ---
 /**
- * Footer —— 版权、协议、GitHub 链接，简洁星空底栏
+ * Footer —— 版权、协议、GitHub 链接
  */
-const REPO_URL = 'https://github.com/Anson-Trio/BaiShou-Next';
+const REPO_URL = 'https://github.com/Ratman463/EasyRag';
 const year = new Date().getFullYear();
 ---
 
-<footer class="relative mt-10 border-t border-[rgba(154,212,234,0.15)]">
-  <div class="container py-12">
-    <div class="flex flex-col items-center gap-5 text-center">
+<footer class="border-t border-[#e8e8ed] bg-[#f5f5f7]">
+  <div class="container py-14">
+    <div class="flex flex-col items-center gap-6 text-center">
       <a
-        href={REPO_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-base font-semibold text-white transition-colors hover:text-[#9AD4EA]"
+        href="#hero"
+        class="text-[19px] font-semibold text-[#1d1d1f] transition-opacity hover:opacity-70"
       >
-        BaiShou-Next
+        知图 <span class="text-[#6e6e73]">·</span> Atlas
       </a>
 
-      <p class="max-w-md text-sm leading-relaxed text-[#a0a8b8]">
-        以纯白誓约，守护彼此一生。
+      <p class="max-w-md text-[14px] leading-relaxed text-[#6e6e73]">
+        本地知识库 · AI 问答 · 文档生成<br class="sm:hidden" />
+        你的资料留在本地，模型由你配置。
       </p>
 
-      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px]">
         <a
           href={REPO_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-[#a0a8b8] transition-colors hover:text-[#9AD4EA]"
+          class="text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
         >
           GitHub
         </a>
         <a
-          href="https://github.com/Anson-Trio/BaiShou-Next/blob/main/LICENSE"
+          href="https://github.com/Ratman463/EasyRag/blob/main/LICENSE"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-[#a0a8b8] transition-colors hover:text-[#9AD4EA]"
+          class="text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
         >
-          AGPLv3
+          MIT
         </a>
         <a
           href="#hero"
-          class="text-[#a0a8b8] transition-colors hover:text-[#9AD4EA]"
+          class="text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
         >
           回到顶部 ↑
         </a>
       </nav>
 
-      <div class="mt-2 h-px w-24 bg-[rgba(154,212,234,0.2)]"></div>
+      <div class="h-px w-24 bg-[#d2d2d7]"></div>
 
-      <p class="text-[13px] text-[#6b7488]">
-        © 2024-{year} Anson-Trio. Released under AGPLv3.
+      <p class="text-[12px] text-[#86868b]">
+        © 2024-{year} Ratman463. Released under MIT.
       </p>
     </div>
   </div>

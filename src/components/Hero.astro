@@ -1,68 +1,43 @@
 ---
 /**
  * Hero 区域
- * - 全屏高度，银河背景最显眼
- * - 居中：大标题、副标题、Latte Banner、台词、两个按钮
+ * - 苹果风：超大标题、副标题、双按钮
+ * - 下方一个产品界面示意卡片（纯 CSS 画，不依赖图片）
  */
-const REPO_URL = 'https://github.com/Anson-Trio/BaiShou-Next';
-const LATTE_BANNER = '/Latte/assets/images/Latte-Banner-01.png';
+const REPO_URL = 'https://github.com/Ratman463/EasyRag';
 ---
 
 <section
   id="hero"
-  class="relative flex min-h-screen flex-col items-center justify-center px-6 py-20 text-center"
+  class="relative flex min-h-[88vh] flex-col items-center justify-center px-6 pt-24 pb-16 text-center"
 >
-  <!-- 装饰性微星（CSS keyframes 闪烁，不引入动画库） -->
-  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <span class="star" style="top: 18%; left: 12%; animation-delay: 0s;"></span>
-    <span class="star" style="top: 28%; left: 82%; animation-delay: 0.8s;"></span>
-    <span class="star" style="top: 62%; left: 8%; animation-delay: 1.6s;"></span>
-    <span class="star" style="top: 74%; left: 90%; animation-delay: 2.2s;"></span>
-    <span class="star" style="top: 40%; left: 50%; animation-delay: 1.2s;"></span>
-    <span class="star" style="top: 85%; left: 38%; animation-delay: 2.8s;"></span>
-  </div>
-
   <div class="relative z-10 flex max-w-3xl flex-col items-center">
     <!-- 大标题 -->
     <h1
-      class="animate-in text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl"
+      class="animate-in text-[56px] font-semibold leading-[1.07] tracking-[-0.015em] text-[#1d1d1f] sm:text-[72px] md:text-[80px]"
     >
-      白守 · BaiShou-Next
+      知图
     </h1>
 
     <!-- 副标题 -->
     <p
-      class="animate-in animate-in-delay-1 mt-5 text-lg text-[#a0a8b8] sm:text-xl md:text-2xl"
+      class="animate-in animate-in-delay-1 mt-4 text-[24px] font-semibold leading-snug text-[#1d1d1f] sm:text-[32px] md:text-[36px]"
     >
-      以纯白誓约，守护彼此一生
+      本地知识库 · AI 问答 · 文档生成
     </p>
 
-    <!-- Latte Banner -->
-    <div class="animate-in animate-in-delay-2 mt-10 w-full max-w-2xl">
-      <img
-        src={LATTE_BANNER}
-        alt="Latte 看板娘 Banner"
-        class="latte-banner mx-auto w-full"
-        loading="eager"
-        width="1024"
-        height="512"
-      />
-    </div>
-
-    <!-- Latte 台词 -->
     <p
-      class="animate-in animate-in-delay-3 mt-6 text-base italic text-[#9AD4EA] sm:text-lg"
+      class="animate-in animate-in-delay-2 mt-5 max-w-xl text-[17px] leading-[1.6] text-[#6e6e73] sm:text-[19px] sm:leading-[1.47]"
     >
-      「时光流逝，记忆消散。而我，已在此守候了很久很久。」
+      上传文档，问库即答，一句话成文。<br class="hidden sm:block" />
+      你的资料留在本地，大模型只负责思考。
     </p>
 
     <!-- 按钮 -->
     <div
-      class="animate-in animate-in-delay-4 mt-10 flex flex-col gap-3 sm:flex-row"
+      class="animate-in animate-in-delay-3 mt-10 flex flex-col gap-4 sm:flex-row sm:gap-3"
     >
-      <a href="#about" class="btn btn-primary">
-        了解白守
-      </a>
+      <a href="#features" class="btn btn-primary">了解功能</a>
       <a
         href={REPO_URL}
         target="_blank"
@@ -71,6 +46,68 @@ const LATTE_BANNER = '/Latte/assets/images/Latte-Banner-01.png';
       >
         GitHub
       </a>
+    </div>
+  </div>
+
+  <!-- 产品界面示意：三大功能卡 -->
+  <div
+    class="animate-in animate-in-delay-4 mt-20 w-full max-w-4xl rounded-[28px] border border-[#e8e8ed] bg-[#f5f5f7] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.08)] sm:p-6"
+  >
+    <!-- 窗口栏 -->
+    <div class="mb-4 flex items-center gap-2 px-2">
+      <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
+      <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
+      <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
+      <span class="ml-3 text-[13px] font-medium text-[#86868b]">知图</span>
+    </div>
+
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <!-- 知识库 -->
+      <div class="rounded-[18px] bg-white p-5 text-left shadow-sm">
+        <div
+          class="mb-3 flex h-10 w-10 items-center justify-center rounded-[10px] bg-[#0071e3]/10 text-[#0071e3]"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="text-[15px] font-semibold text-[#1d1d1f]">知识库</p>
+        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]">
+          PDF / Word / TXT / MD 拖入即入库，自动向量化
+        </p>
+      </div>
+
+      <!-- 智能问答 -->
+      <div class="rounded-[18px] bg-white p-5 text-left shadow-sm">
+        <div
+          class="mb-3 flex h-10 w-10 items-center justify-center rounded-[10px] bg-[#0071e3]/10 text-[#0071e3]"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M9.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="text-[15px] font-semibold text-[#1d1d1f]">智能问答</p>
+        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]">
+          RAG 检索 + 大模型流式回答，附来源标注
+        </p>
+      </div>
+
+      <!-- 文档生成 -->
+      <div class="rounded-[18px] bg-white p-5 text-left shadow-sm">
+        <div
+          class="mb-3 flex h-10 w-10 items-center justify-center rounded-[10px] bg-[#0071e3]/10 text-[#0071e3]"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 3h8l4 4v14H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M14 3v4h4M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="text-[15px] font-semibold text-[#1d1d1f]">文档生成</p>
+        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]">
+          一句话描述需求，一键下载排版好的 Word
+        </p>
+      </div>
     </div>
   </div>
 </section>

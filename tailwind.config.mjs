@@ -4,26 +4,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 白守专属配色：深蓝灰主调 + 浅蓝点缀
-        void: '#0a0f1e',
-        surface: '#101728',
-        surfaceLight: '#1a2138',
-        accent: '#9AD4EA',
-        accentDeep: '#6fb4d0',
-        textPrimary: '#e8eaed',
-        textSecondary: '#a0a8b8',
-        textMuted: '#6b7488',
+        // 知图 · Apple 风格配色
+        ink: '#1d1d1f',
+        inkSoft: '#424245',
+        inkMuted: '#6e6e73',
+        inkFaint: '#86868b',
+        soft: '#f5f5f7',
+        line: '#d2d2d7',
+        lineSoft: '#e8e8ed',
+        accent: '#0071e3',
+        accentHover: '#0077ed',
       },
       fontFamily: {
-        sans: ['"Noto Sans SC"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-        display: ['"Noto Sans SC"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        sans: [
+          '-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"',
+          '"Helvetica Neue"', '"PingFang SC"', '"Hiragino Sans GB"',
+          '"Microsoft YaHei"', '"Segoe UI"', 'Roboto', 'sans-serif',
+        ],
       },
       borderRadius: {
-        card: '14px',
-        cardLg: '16px',
-      },
-      backdropBlur: {
-        soft: '8px',
+        card: '18px',
+        cardLg: '24px',
       },
     },
   },
