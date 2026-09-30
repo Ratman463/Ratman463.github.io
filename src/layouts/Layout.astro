@@ -4,6 +4,7 @@
  * 苹果风：白底、系统字体、淡入动画
  */
 import '../styles/global.css';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 export interface Props {
   title?: string;
@@ -35,8 +36,27 @@ const {
     <meta property="og:locale" content="zh_CN" />
 
     <!-- PingFang / SF 系统字体栈即可，无需外部字体 -->
+
+    {/* 首屏防闪烁：默认 zh 不需要等 JS；非 zh 时提前隐藏 body，等 LanguageSwitcher 应用完语言再淡入 */}
+    <script is:inline>
+      (function () {
+        try {
+          var v = localStorage.getItem('atlas.lang');
+          if (v === 'en') {
+            var el = document.documentElement;
+            el.setAttribute('lang', 'en');
+            el.setAttribute('data-lang-pending', '1');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style is:inline>
+      body { transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+      html[data-lang-pending] body { opacity: 0; }
+    </style>
   </head>
   <body>
+    <LanguageSwitcher />
     <slot />
 
     <!-- 进入视口淡入动画 -->

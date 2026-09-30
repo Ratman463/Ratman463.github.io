@@ -15,6 +15,7 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
     <!-- 大标题 -->
     <h1
       class="animate-in text-[56px] font-semibold leading-[1.07] tracking-[-0.015em] text-[#1d1d1f] sm:text-[72px] md:text-[80px]"
+      data-i18n="hero.title"
     >
       知图
     </h1>
@@ -22,6 +23,7 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
     <!-- 副标题 -->
     <p
       class="animate-in animate-in-delay-1 mt-4 text-[24px] font-semibold leading-snug text-[#1d1d1f] sm:text-[32px] md:text-[36px]"
+      data-i18n="hero.subtitle"
     >
       本地知识库 · AI 问答 · 文档生成
     </p>
@@ -29,20 +31,21 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
     <p
       class="animate-in animate-in-delay-2 mt-5 max-w-xl text-[17px] leading-[1.6] text-[#6e6e73] sm:text-[19px] sm:leading-[1.47]"
     >
-      上传文档，问库即答，一句话成文。<br class="hidden sm:block" />
-      你的资料留在本地，大模型只负责思考。
+      <span data-i18n="hero.desc.1">上传文档，问库即答，一句话成文。</span><br class="hidden sm:block" />
+      <span data-i18n="hero.desc.2">你的资料留在本地，大模型只负责思考。</span>
     </p>
 
     <!-- 按钮 -->
     <div
       class="animate-in animate-in-delay-3 mt-10 flex flex-col gap-4 sm:flex-row sm:gap-3"
     >
-      <a href="#features" class="btn btn-primary">了解功能</a>
+      <a href="#features" class="btn btn-primary" data-i18n="hero.cta.primary">了解功能</a>
       <a
         href={REPO_URL}
         target="_blank"
         rel="noopener noreferrer"
         class="btn btn-outline"
+        data-i18n="hero.cta.github"
       >
         GitHub
       </a>
@@ -58,7 +61,7 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
       <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
       <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
       <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
-      <span class="ml-3 text-[13px] font-medium text-[#86868b]">知图</span>
+      <span class="ml-3 text-[13px] font-medium text-[#86868b]" data-i18n="hero.window.label">知图</span>
     </div>
 
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -71,8 +74,8 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
             <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="currentColor"/>
           </svg>
         </div>
-        <p class="text-[15px] font-semibold text-[#1d1d1f]">知识库</p>
-        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]">
+        <p class="text-[15px] font-semibold text-[#1d1d1f]" data-i18n="hero.card.knowledge.title">知识库</p>
+        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]" data-i18n="hero.card.knowledge.desc">
           PDF / Word / TXT / MD 拖入即入库，自动向量化
         </p>
       </div>
@@ -87,8 +90,8 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
             <path d="M9.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
         </div>
-        <p class="text-[15px] font-semibold text-[#1d1d1f]">智能问答</p>
-        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]">
+        <p class="text-[15px] font-semibold text-[#1d1d1f]" data-i18n="hero.card.ask.title">智能问答</p>
+        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]" data-i18n="hero.card.ask.desc">
           RAG 检索 + 大模型流式回答，附来源标注
         </p>
       </div>
@@ -103,8 +106,8 @@ const REPO_URL = 'https://github.com/Ratman463/Atlas';
             <path d="M14 3v4h4M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
         </div>
-        <p class="text-[15px] font-semibold text-[#1d1d1f]">文档生成</p>
-        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]">
+        <p class="text-[15px] font-semibold text-[#1d1d1f]" data-i18n="hero.card.doc.title">文档生成</p>
+        <p class="mt-1 text-[13px] leading-[1.5] text-[#6e6e73]" data-i18n="hero.card.doc.desc">
           一句话描述需求，一键下载排版好的 Word
         </p>
       </div>

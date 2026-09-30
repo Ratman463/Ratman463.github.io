@@ -3,6 +3,7 @@
  * 知图核心特性
  * - 三大核心功能：大卡片横向排列
  * - 六项细节特性：3 列网格
+ * 所有可见文案通过 data-i18n 暴露给客户端 i18n 脚本，首屏以中文兜底。
  */
 import FeatureCard, { type FeatureCardProps } from './FeatureCard.tsx';
 import {
@@ -16,19 +17,25 @@ import {
   Boxes,
 } from 'lucide-react';
 
-/* 三大核心功能 */
+/* 三大核心功能：titleKey/descKey 对应 i18n 字典中的键 */
 const coreFeatures = [
   {
+    titleKey: 'features.core.knowledge.title',
+    descKey: 'features.core.knowledge.desc',
     title: '知识库',
     desc: 'PDF / Word / TXT / Markdown 拖入即自动入库，语义切块 + 向量化，边存边可查。',
     icon: '库',
   },
   {
+    titleKey: 'features.core.ask.title',
+    descKey: 'features.core.ask.desc',
     title: '智能问答',
     desc: '基于 RAG 检索你的文档，交给任意大模型综合回答，流式输出并标注引用来源。',
     icon: '问',
   },
   {
+    titleKey: 'features.core.doc.title',
+    descKey: 'features.core.doc.desc',
     title: '文档生成',
     desc: '一句话描述需求，模型翻阅知识库后生成 Markdown，一键渲染成排版好的 .docx。',
     icon: '文',
@@ -39,31 +46,43 @@ const coreFeatures = [
 const features: FeatureCardProps[] = [
   {
     icon: ShieldCheck,
+    titleKey: 'features.feat.local.title',
+    descriptionKey: 'features.feat.local.desc',
     title: '资料本地化',
     description: '文档、向量库、检索全部跑在本地，不上传任何服务器。你的资料，你做主。',
   },
   {
     icon: KeyRound,
+    titleKey: 'features.feat.key.title',
+    descriptionKey: 'features.feat.key.desc',
     title: '自备 API Key',
     description: '连接你自己的 Endpoint、Key、Model，OpenAI / DeepSeek / Moonshot 等任意兼容接口。',
   },
   {
     icon: Zap,
+    titleKey: 'features.feat.stream.title',
+    descriptionKey: 'features.feat.stream.desc',
     title: '流式输出',
     description: '问答逐字流式返回，边生成边显示，不干等一整个大段落。',
   },
   {
     icon: Search,
+    titleKey: 'features.feat.cite.title',
+    descriptionKey: 'features.feat.cite.desc',
     title: '引用来源',
     description: '每条回答都标注来自哪份文档、相似度多少，关键内容可溯源核对。',
   },
   {
     icon: Languages,
+    titleKey: 'features.feat.prompt.title',
+    descriptionKey: 'features.feat.prompt.desc',
     title: '提示词可定制',
     description: '内置默认角色，也可自定义 system prompt，问答与生成共用一套规则。',
   },
   {
     icon: Boxes,
+    titleKey: 'features.feat.run.title',
+    descriptionKey: 'features.feat.run.desc',
     title: '本地运行',
     description: 'Python 一条命令启动，单机即可跑，浏览器里打开就能用。',
   },
@@ -73,11 +92,11 @@ const features: FeatureCardProps[] = [
 <section id="features" class="section bg-[#f5f5f7]">
   <div class="container">
     <div class="reveal max-w-2xl">
-      <p class="eyebrow">核心功能</p>
-      <h2 class="text-[32px] font-semibold text-[#1d1d1f] sm:text-[40px]">
+      <p class="eyebrow" data-i18n="features.eyebrow">核心功能</p>
+      <h2 class="text-[32px] font-semibold text-[#1d1d1f] sm:text-[40px]" data-i18n="features.title">
         三个动作，盘活你的文档。
       </h2>
-      <p class="mt-4 text-[17px] leading-[1.6] text-[#6e6e73]">
+      <p class="mt-4 text-[17px] leading-[1.6] text-[#6e6e73]" data-i18n="features.subtitle">
         上传入库 · 向库提问 · 一键成文。模型的配置始终握在你手里。
       </p>
     </div>
@@ -92,8 +111,8 @@ const features: FeatureCardProps[] = [
           >
             {item.icon}
           </div>
-          <h3 class="text-[21px] font-semibold text-[#1d1d1f]">{item.title}</h3>
-          <p class="mt-3 text-[14.5px] leading-[1.75] text-[#424245]">{item.desc}</p>
+          <h3 class="text-[21px] font-semibold text-[#1d1d1f]" data-i18n={item.titleKey}>{item.title}</h3>
+          <p class="mt-3 text-[14.5px] leading-[1.75] text-[#424245]" data-i18n={item.descKey}>{item.desc}</p>
         </div>
       ))}
     </div>
@@ -105,6 +124,8 @@ const features: FeatureCardProps[] = [
           icon={feature.icon}
           title={feature.title}
           description={feature.description}
+          titleKey={feature.titleKey}
+          descriptionKey={feature.descriptionKey}
         />
       ))}
     </div>

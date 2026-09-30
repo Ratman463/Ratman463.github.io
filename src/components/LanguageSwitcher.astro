@@ -1,0 +1,204 @@
+---
+/**
+ * 语言切换器（中 / EN）
+ * - 苹果风：右上角 fixed，半透明白底 + backdrop-blur + 胶囊分段控制
+ * - 包含客户端 i18n 应用逻辑（监听 data-i18n 元素、同步 title/meta/lang）
+ * - 语言偏好存 localStorage，首屏由 Layout 头部内联脚本提前应用，避免闪烁
+ */
+import { translations, DEFAULT_LANG, SUPPORTED_LANGS, LANG_STORAGE_KEY, type Lang } from '../i18n/translations';
+
+const langs = SUPPORTED_LANGS;
+const defaultLang = DEFAULT_LANG;
+const dict = translations;
+const storageKey = LANG_STORAGE_KEY;
+---
+
+<!-- 右上角 fixed 分段控制器 -->
+<div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language">
+  <button
+    type="button"
+    class="lang-btn"
+    data-lang="zh"
+    aria-pressed={defaultLang === 'zh' ? 'true' : 'false'}
+  >中</button>
+  <span class="lang-divider" aria-hidden="true">·</span>
+  <button
+    type="button"
+    class="lang-btn"
+    data-lang="en"
+    aria-pressed={defaultLang === 'en' ? 'true' : 'false'}
+  >EN</button>
+</div>
+
+<style>
+  .lang-switcher {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    height: 34px;
+    padding: 0 6px;
+    border-radius: 980px;
+    background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    user-select: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* 首屏避免遮挡 Hero 大标题：移动端微微下移 */
+  @media (max-width: 640px) {
+    .lang-switcher {
+      top: 12px;
+      right: 14px;
+      height: 32px;
+      font-size: 12px;
+    }
+  }
+
+  .lang-btn {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: #6e6e73;
+    font: inherit;
+    padding: 0 10px;
+    height: 24px;
+    line-height: 1;
+    border-radius: 980px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .lang-btn:hover {
+    color: #1d1d1f;
+  }
+  .lang-btn.is-active {
+    color: #ffffff;
+    background: #1d1d1f;
+  }
+  .lang-btn.is-active:hover {
+    color: #ffffff;
+  }
+  .lang-divider {
+    color: #d2d2d7;
+    font-weight: 400;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* 尊重 reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .lang-switcher,
+    .lang-btn {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { translations, SUPPORTED_LANGS, DEFAULT_LANG, LANG_STORAGE_KEY, type Lang } from '../i18n/translations';
+
+  const DICT = translations;
+
+  /** 读取存储语言，非法值回退默认 */
+  function getStoredLang(): Lang {
+    try {
+      const v = localStorage.getItem(LANG_STORAGE_KEY);
+      if (v && (SUPPORTED_LANGS as string[]).includes(v)) return v as Lang;
+    } catch {
+      /* ignore */
+    }
+    return DEFAULT_LANG;
+  }
+
+  /** 应用某种语言到所有可翻译节点 */
+  function applyLang(lang: Lang) {
+    const dict = DICT[lang];
+
+    // 1. <html lang> + <title> + meta description
+    document.documentElement.setAttribute('lang', dict.htmlLang);
+    const titleEl = document.querySelector('title');
+    if (titleEl) titleEl.textContent = dict.title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', dict.description);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', dict.description);
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) ogLocale.setAttribute('content', lang === 'zh' ? 'zh_CN' : 'en_US');
+
+    // 2. 所有带 data-i18n 的元素 → textContent
+    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (!key) return;
+      const val = dict[key as keyof typeof dict];
+      if (typeof val === 'string') el.textContent = val;
+    });
+
+    // 3. data-i18n-html（允许保留内嵌 <span> 等结构，但替换纯文本节点）
+    // 此处暂未使用，预留接口
+
+    // 4. 占位符 / aria-label
+    document.querySelectorAll<HTMLElement>('[data-i18n-placeholder]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (!key) return;
+      const val = dict[key as keyof typeof dict];
+      if (typeof val === 'string') el.setAttribute('placeholder', val);
+    });
+    document.querySelectorAll<HTMLElement>('[data-i18n-aria]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-aria');
+      if (!key) return;
+      const val = dict[key as keyof typeof dict];
+      if (typeof val === 'string') el.setAttribute('aria-label', val);
+    });
+
+    // 5. 同步切换按钮自身激活态
+    document.querySelectorAll<HTMLButtonElement>('.lang-btn').forEach((btn) => {
+      const active = btn.dataset.lang === lang;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+
+    // 6. 持久化
+    try {
+      localStorage.setItem(LANG_STORAGE_KEY, lang);
+    } catch {
+      /* ignore */
+    }
+
+    // 7. 通知其它组件（预留）
+    document.documentElement.dataset.lang = lang;
+    window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
+  }
+
+  /** 切换按钮交互 */
+  function initSwitcher() {
+    const root = document.getElementById('lang-switcher');
+    if (!root) return;
+
+    // 应用初始语言（与 Layout 头部内联脚本保持一致，避免首屏错位）
+    const initial = (document.documentElement.dataset.lang as Lang) || getStoredLang();
+    applyLang(initial);
+
+    root.querySelectorAll<HTMLButtonElement>('.lang-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang as Lang;
+        if (!lang || !SUPPORTED_LANGS.includes(lang)) return;
+        applyLang(lang);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSwitcher);
+  } else {
+    initSwitcher();
+  }
+</script>

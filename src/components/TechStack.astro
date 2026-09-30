@@ -4,28 +4,29 @@
  */
 interface TechRow {
   layer: string;
+  layerKey: string;
   tech: string;
 }
 
 const rows: TechRow[] = [
-  { layer: '后端', tech: 'FastAPI (Python) + Uvicorn' },
-  { layer: '向量检索', tech: 'sqlite-vec + SentenceTransformers（all-MiniLM-L6-v2）' },
-  { layer: '文本切块', tech: 'LangChain SemanticChunker（语义边界切分）' },
-  { layer: 'LLM 接入', tech: '自写轻量 OpenAI 兼容客户端（httpx，支持流式）' },
-  { layer: '文档生成', tech: 'python-docx 渲染 Markdown → Word（.docx）' },
-  { layer: '前端', tech: '原生 HTML / CSS / JS · Apple 风格单页（零框架依赖）' },
-  { layer: '配置', tech: '浏览器 localStorage 保存 API Key / Endpoint / Model，不上传服务器' },
+  { layer: '后端', layerKey: 'tech.row.backend', tech: 'FastAPI (Python) + Uvicorn' },
+  { layer: '向量检索', layerKey: 'tech.row.vec', tech: 'sqlite-vec + SentenceTransformers（all-MiniLM-L6-v2）' },
+  { layer: '文本切块', layerKey: 'tech.row.chunk', tech: 'LangChain SemanticChunker（语义边界切分）' },
+  { layer: 'LLM 接入', layerKey: 'tech.row.llm', tech: '自写轻量 OpenAI 兼容客户端（httpx，支持流式）' },
+  { layer: '文档生成', layerKey: 'tech.row.doc', tech: 'python-docx 渲染 Markdown → Word（.docx）' },
+  { layer: '前端', layerKey: 'tech.row.frontend', tech: '原生 HTML / CSS / JS · Apple 风格单页（零框架依赖）' },
+  { layer: '配置', layerKey: 'tech.row.config', tech: '浏览器 localStorage 保存 API Key / Endpoint / Model，不上传服务器' },
 ];
 ---
 
 <section id="tech-stack" class="section">
   <div class="container max-w-3xl">
     <div class="reveal">
-      <p class="eyebrow">技术架构</p>
-      <h2 class="text-[32px] font-semibold text-[#1d1d1f] sm:text-[40px]">
+      <p class="eyebrow" data-i18n="tech.eyebrow">技术架构</p>
+      <h2 class="text-[32px] font-semibold text-[#1d1d1f] sm:text-[40px]" data-i18n="tech.title">
         轻量，但该有的都有。
       </h2>
-      <p class="mt-4 text-[17px] leading-[1.6] text-[#6e6e73]">
+      <p class="mt-4 text-[17px] leading-[1.6] text-[#6e6e73]" data-i18n="tech.subtitle">
         依赖收敛、单机可跑，所有数据落在你本地。
       </p>
     </div>
@@ -34,10 +35,10 @@ const rows: TechRow[] = [
       <table class="w-full border-collapse text-left">
         <thead>
           <tr class="border-b border-[#e8e8ed]">
-            <th scope="col" class="px-6 py-4 text-sm font-semibold text-[#1d1d1f]">
+            <th scope="col" class="px-6 py-4 text-sm font-semibold text-[#1d1d1f]" data-i18n="tech.col.layer">
               层级
             </th>
-            <th scope="col" class="px-6 py-4 text-sm font-semibold text-[#1d1d1f]">
+            <th scope="col" class="px-6 py-4 text-sm font-semibold text-[#1d1d1f]" data-i18n="tech.col.tech">
               技术
             </th>
           </tr>
@@ -53,6 +54,7 @@ const rows: TechRow[] = [
               <th
                 scope="row"
                 class="px-6 py-4 align-top text-[15px] font-medium text-[#1d1d1f]"
+                data-i18n={row.layerKey}
               >
                 {row.layer}
               </th>
@@ -66,12 +68,13 @@ const rows: TechRow[] = [
     </div>
 
     <p class="reveal mt-6 text-[13px] text-[#86868b]">
-      开源协议：Apache License 2.0 ·
+      <span data-i18n="tech.note">开源协议：Apache License 2.0 ·</span>
       <a
         href="https://github.com/Ratman463/Atlas"
         target="_blank"
         rel="noopener noreferrer"
         class="text-[#0071e3] underline-offset-4 hover:underline"
+        data-i18n="tech.note.link"
       >
         在 GitHub 查看源码 →
       </a>
